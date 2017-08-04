@@ -1,8 +1,7 @@
 package com.andrei.jpa.demo.examples.resultset;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.andrei.jpa.demo.domain.repository.CarModelRepository;
-import com.andrei.jpa.demo.domain.repository.struct.CarModelProjectStruct;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,13 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.andrei.jpa.demo.domain.repository.CarModelRepository;
+import com.andrei.jpa.demo.domain.repository.struct.CarModelProjectStruct;
 
 /**
- * ${TODO} Klassenbeschreibung
+ * Using DTO projection to reduce the result set.
  *
- * @author DVM5CLT
- * @version $Id: BlaBla.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
+ * @author Andrei Moldovan
  * @since 30.07.2017
  */
 @RunWith(SpringRunner.class)
@@ -33,19 +33,19 @@ public class A_ReducingResultSet {
 
 	@Before
 	public void setup() {
-		startTime = System.currentTimeMillis();
+		this.startTime = System.currentTimeMillis();
 	}
 
 	@Test
 	public void usingStructsToReduceResultSet() {
-		List<CarModelProjectStruct> carModels = carModelRepository.findByCarBrandAsStruct(CarBrand.AUDI);
+		List<CarModelProjectStruct> carModels = this.carModelRepository.findByCarBrandAsStruct(CarBrand.AUDI);
 		System.out.println("Found " + carModels.size() + " car model structs.");
 		processCarModels(carModels);
 	}
 
 	private void processCarModels(List<CarModelProjectStruct> models) {
 
-		//Do something that doesn't make any sens.
+		// Do something that doesn't make any sens.
 		for (CarModelProjectStruct model : models) {
 			model.getCarModelName().compareTo(model.getCarModelProject());
 		}
@@ -55,6 +55,6 @@ public class A_ReducingResultSet {
 	public void logExectionTime() {
 
 		long finish = System.currentTimeMillis();
-		System.out.println("Execution time: " + (finish - startTime) + "ms");
+		System.out.println("Execution time: " + (finish - this.startTime) + "ms");
 	}
 }

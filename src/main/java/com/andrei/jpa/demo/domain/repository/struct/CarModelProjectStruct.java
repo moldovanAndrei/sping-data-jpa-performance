@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 /**
  * Structure object for reducing the result set.
- *
- * @author DVM5CLT
- * @version $Id: CarModelProjectStruct.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
+ * 
+ * @author Andrei Moldovan.
  * @since 30.07.2017
  */
 public class CarModelProjectStruct implements Serializable {
@@ -22,10 +21,10 @@ public class CarModelProjectStruct implements Serializable {
 	}
 
 	public String getCarModelName() {
-		return carModelName;
+		return this.carModelName;
 	}
 
 	public String getCarModelProject() {
-		return carModelProject;
+		return this.carModelProject;
 	}
 }

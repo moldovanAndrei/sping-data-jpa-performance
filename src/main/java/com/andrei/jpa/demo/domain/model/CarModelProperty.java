@@ -1,8 +1,5 @@
 package com.andrei.jpa.demo.domain.model;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,17 +14,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.sun.istack.internal.NotNull;
+
 /**
- * ${TODO} Klassenbeschreibung
+ * {@code Entity} for a car model property.
  *
- * @author DVM5CLT
- * @version $Id: CarModelProperty.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
+ * @author Andrei Moldovan.
  * @since 30.07.2017
  */
 @Entity
 @Table(name = "CAR_MODEL_PROPERTY")
 public class CarModelProperty {
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ")
@@ -49,8 +47,7 @@ public class CarModelProperty {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "CAR_MODEL_ID", nullable = false,
-			foreignKey = @ForeignKey(name = "FK_CAR_MODEL_PROPERTY"))
+	@JoinColumn(name = "CAR_MODEL_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_CAR_MODEL_PROPERTY"))
 	private CarModel carModel;
 
 	public CarModelProperty() {
@@ -63,11 +60,11 @@ public class CarModelProperty {
 	}
 
 	public String getProperty() {
-		return property;
+		return this.property;
 	}
 
 	public String getPropertyFamily() {
-		return propertyFamily;
+		return this.propertyFamily;
 	}
 
 	public void setCarModel(CarModel carModel) {

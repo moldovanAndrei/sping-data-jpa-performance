@@ -9,11 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * ${TODO} Klassenbeschreibung
+ * A JUnit Test that does nothing.
  *
- * @author DVM5CLT
- * @version $Id: TestDoingNothing.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
- * @since 31.07.2017
+ * @author Andrei Moldovan.
+ * @since 30.07.2017
  */
 
 @RunWith(SpringRunner.class)
@@ -25,7 +24,7 @@ public class TestDoingNothing {
 
 	@Before
 	public void setup() {
-		startTime = System.currentTimeMillis();
+		this.startTime = System.currentTimeMillis();
 	}
 
 	@Test
@@ -37,6 +36,6 @@ public class TestDoingNothing {
 	public void logExectionTime() {
 
 		long finish = System.currentTimeMillis();
-		System.out.println("Execution time: " + (finish - startTime) + "ms");
+		System.out.println("Execution time: " + (finish - this.startTime) + "ms");
 	}
 }

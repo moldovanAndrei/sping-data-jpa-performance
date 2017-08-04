@@ -1,19 +1,19 @@
 package com.andrei.jpa.demo.examples.uniqueconstraints;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.andrei.jpa.demo.domain.service.CarModelService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.andrei.jpa.demo.domain.service.CarModelService;
+
 /**
- * ${TODO} Klassenbeschreibung
+ * Unique constraint violation example when not flushing.
  *
- * @author DVM5CLT
- * @version $Id: A_ViolateUniqueConstraint.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
- * @since 31.07.2017
+ * @author Andrei Moldovan
+ * @since 30.07.2017
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,7 +24,7 @@ public class A_ViolateUniqueConstraint {
 
 	@Test
 	public void test() {
-		//Live demo.
-		carModelService.saveCarModels(CarBrand.AUDI);
+		// Live demo.
+		this.carModelService.saveCarModels(CarBrand.AUDI);
 	}
 }

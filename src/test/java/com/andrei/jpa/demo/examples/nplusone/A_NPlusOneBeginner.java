@@ -1,10 +1,7 @@
 package com.andrei.jpa.demo.examples.nplusone;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.andrei.jpa.demo.domain.model.CarModel;
-import com.andrei.jpa.demo.domain.model.CarProject;
-import com.andrei.jpa.demo.domain.repository.CarModelRepository;
-import com.andrei.jpa.demo.domain.repository.CarProjectRepository;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,14 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.andrei.jpa.demo.domain.model.CarModel;
+import com.andrei.jpa.demo.domain.model.CarProject;
+import com.andrei.jpa.demo.domain.repository.CarModelRepository;
+import com.andrei.jpa.demo.domain.repository.CarProjectRepository;
 
 /**
- * ${TODO} Klassenbeschreibung
+ * Example showcase 1 for the n + 1 problem.
  *
- * @author DVM5CLT
- * @version $Id: A_NPlusOneBeginner.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
- * @since 01.08.2017
+ * @author Andrei Moldovan.
+ * @since 30.07.2017
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,22 +37,22 @@ public class A_NPlusOneBeginner {
 
 	@Before
 	public void setup() {
-		startTime = System.currentTimeMillis();
+		this.startTime = System.currentTimeMillis();
 	}
 
 	@Test
 	public void nPlusOneBeginnerUsecase() {
 
-		List<CarProject> carProjects = carProjectRepository.findByCarBrand(CarBrand.AUDI);
-		for(CarProject project : carProjects) {
-			List<CarModel> projectModels = carModelRepository.findByCarProject(project);
+		List<CarProject> carProjects = this.carProjectRepository.findByCarBrand(CarBrand.AUDI);
+		for (CarProject project : carProjects) {
+			List<CarModel> projectModels = this.carModelRepository.findByCarProject(project);
 			processCarModels(projectModels);
 		}
 	}
 
 	private void processCarModels(List<CarModel> projectModels) {
 
-		//Do something that doesn't make any sens.
+		// Do something that doesn't make any sens.
 		for (CarModel model : projectModels) {
 			model.getModelName().compareTo(model.getDescription());
 		}
@@ -62,6 +62,6 @@ public class A_NPlusOneBeginner {
 	public void logExectionTime() {
 
 		long finish = System.currentTimeMillis();
-		System.out.println("Execution time: " + (finish - startTime) + "ms");
+		System.out.println("Execution time: " + (finish - this.startTime) + "ms");
 	}
 }

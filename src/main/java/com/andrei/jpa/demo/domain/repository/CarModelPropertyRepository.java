@@ -1,17 +1,17 @@
 package com.andrei.jpa.demo.domain.repository;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.andrei.jpa.demo.domain.model.CarModelProperty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.andrei.jpa.demo.domain.model.CarModelProperty;
+
 /**
- * ${TODO} Klassenbeschreibung
+ * Repository for {@link CarModelProperty}.
  *
- * @author DVM5CLT
- * @version $Id: CarModelPropertyRepository.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
+ * @author Andrei Moldovan.
  * @since 30.07.2017
  */
 public interface CarModelPropertyRepository extends JpaRepository<CarModelProperty, Long> {

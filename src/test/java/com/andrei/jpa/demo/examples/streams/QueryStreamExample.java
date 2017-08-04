@@ -1,8 +1,8 @@
 package com.andrei.jpa.demo.examples.streams;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.andrei.jpa.demo.domain.model.CarModel;
-import com.andrei.jpa.demo.domain.repository.CarModelRepository;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,14 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.andrei.jpa.demo.domain.model.CarModel;
+import com.andrei.jpa.demo.domain.repository.CarModelRepository;
 
 /**
- * ${TODO} Klassenbeschreibung
+ * Querying data as {@code Stream} result.
  *
- * @author DVM5CLT
- * @since 31.07.2017
+ * @author Andrei Moldovan
+ * @since 30.07.2017
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,15 +34,13 @@ public class QueryStreamExample {
 
 	@Before
 	public void setup() {
-		startTime = System.currentTimeMillis();
+		this.startTime = System.currentTimeMillis();
 	}
 
 	@Test
 	public void test() throws Exception {
-		try (
-				Stream<CarModel> audiCars = carModelRepository.findByCarBrandAsStream(CarBrand.AUDI);
-				Stream<CarModel> volkswagenCars = carModelRepository.findByCarBrandAsStream(CarBrand.VOLKSWAGEN)
-		) {
+		try (Stream<CarModel> audiCars = this.carModelRepository.findByCarBrandAsStream(CarBrand.AUDI);
+				Stream<CarModel> volkswagenCars = this.carModelRepository.findByCarBrandAsStream(CarBrand.VOLKSWAGEN)) {
 			Stream.concat(processAudiCars(audiCars), processVolkswagenCars(volkswagenCars))
 					.collect(Collectors.toList());
 		}
@@ -59,6 +58,6 @@ public class QueryStreamExample {
 	public void logExectionTime() {
 
 		long finish = System.currentTimeMillis();
-		System.out.println("Execution time: " + (finish - startTime) + "ms");
+		System.out.println("Execution time: " + (finish - this.startTime) + "ms");
 	}
 }

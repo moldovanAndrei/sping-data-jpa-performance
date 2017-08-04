@@ -1,8 +1,8 @@
 package com.andrei.jpa.demo.examples.streams;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.andrei.jpa.demo.domain.model.CarModel;
-import com.andrei.jpa.demo.domain.repository.CarModelRepository;
+import java.util.List;
+import java.util.stream.Stream;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,15 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Stream;
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.andrei.jpa.demo.domain.model.CarModel;
+import com.andrei.jpa.demo.domain.repository.CarModelRepository;
 
 /**
- * ${TODO} Klassenbeschreibung
+ * Querying data as {@code List} result.
  *
- * @author DVM5CLT
- * @version $Id: NormalExample.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
- * @since 31.07.2017
+ * @author Andrei Moldovan
+ * @since 30.07.2017
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,14 +34,14 @@ public class NormalExample {
 
 	@Before
 	public void setup() {
-		startTime = System.currentTimeMillis();
+		this.startTime = System.currentTimeMillis();
 	}
 
 	@Test
 	public void test() throws Exception {
 
-		List<CarModel> audiCars = carModelRepository.findByCarBrand(CarBrand.AUDI);
-		List<CarModel> volkswagenCars = carModelRepository.findByCarBrand(CarBrand.AUDI);
+		List<CarModel> audiCars = this.carModelRepository.findByCarBrand(CarBrand.AUDI);
+		List<CarModel> volkswagenCars = this.carModelRepository.findByCarBrand(CarBrand.AUDI);
 
 		Stream.concat(processAudiCars(audiCars), processVolkswagenCars(volkswagenCars));
 	}
@@ -58,6 +58,6 @@ public class NormalExample {
 	public void logExectionTime() {
 
 		long finish = System.currentTimeMillis();
-		System.out.println("Execution time: " + (finish - startTime) + "ms");
+		System.out.println("Execution time: " + (finish - this.startTime) + "ms");
 	}
 }

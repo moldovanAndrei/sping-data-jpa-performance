@@ -1,9 +1,10 @@
 package com.andrei.jpa.demo.domain.repository;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.andrei.jpa.demo.domain.model.CarModel;
-import com.andrei.jpa.demo.domain.model.CarProject;
-import com.andrei.jpa.demo.domain.repository.struct.CarModelProjectStruct;
+import java.util.List;
+import java.util.stream.Stream;
+
+import javax.persistence.QueryHint;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,15 +12,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
-import javax.persistence.QueryHint;
-import java.util.List;
-import java.util.stream.Stream;
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.andrei.jpa.demo.domain.model.CarModel;
+import com.andrei.jpa.demo.domain.model.CarProject;
+import com.andrei.jpa.demo.domain.repository.struct.CarModelProjectStruct;
 
 /**
- * ${TODO} Klassenbeschreibung
- *
- * @author DVM5CLT
- * @version $Id: CarModelRepository.java 31604 2014-10-30 08:03:19Z DVM5CLT $$
+ * Repository for {@link CarModel}.
+ * 
+ * @author Andrei Moldovan.
  * @since 30.07.2017
  */
 public interface CarModelRepository extends JpaRepository<CarModel, Long> {
@@ -38,14 +39,12 @@ public interface CarModelRepository extends JpaRepository<CarModel, Long> {
 	List<CarModel> findByCarProjectWithPageable(@Param("carProject") CarProject carProject, Pageable pageRequest);
 
 	@QueryHints(@QueryHint(name = "org.hibernate.fetchSize", value = "1000"))
-	@Query("SELECT DISTINCT model FROM CarModel model "
-			+ "LEFT JOIN FETCH model.carModelProperties "
+	@Query("SELECT DISTINCT model FROM CarModel model " + "LEFT JOIN FETCH model.carModelProperties "
 			+ "WHERE model.carProject.carBrand = :carBrand")
 	List<CarModel> findByCarBrandFetchProperties(@Param("carBrand") CarBrand carBrand);
 
 	@QueryHints(@QueryHint(name = "org.hibernate.fetchSize", value = "1000"))
-	@Query("SELECT DISTINCT model FROM CarModel model "
-			+ "LEFT JOIN FETCH model.carModelPrototypes "
+	@Query("SELECT DISTINCT model FROM CarModel model " + "LEFT JOIN FETCH model.carModelPrototypes "
 			+ "WHERE model.carProject.carBrand = :carBrand")
 	List<CarModel> findByCarBrandFetchPrototypes(@Param("carBrand") CarBrand carBrand);
 
