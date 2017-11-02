@@ -57,11 +57,11 @@ public class DemoDataCreator {
 						model.addCarModelProperty(property);
 						model.addCarModelPrototype(prototype);
 					}
+
 					this.carModelPropertyRepository.save(model.getCarModelProperties());
 					this.carModelPrototypeRepository.save(model.getCarModelPrototypes());
 
 				}
-				this.carModelRepository.save(project.getCarModels());
 			}
 		}
 	}

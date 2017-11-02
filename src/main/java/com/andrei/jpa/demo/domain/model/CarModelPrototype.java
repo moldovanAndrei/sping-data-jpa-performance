@@ -6,12 +6,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.andrei.jpa.demo.domain.CarBrand;
@@ -25,12 +21,7 @@ import com.sun.istack.internal.NotNull;
  */
 @Entity
 @Table(name = "CAR_MODEL_PROTOTYPE")
-public class CarModelPrototype {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ")
-	@SequenceGenerator(sequenceName = "customer_seq", allocationSize = 1, name = "CUST_SEQ")
-	Long id;
+public class CarModelPrototype extends AbstractEntity {
 
 	@NotNull
 	@Enumerated(EnumType.STRING)

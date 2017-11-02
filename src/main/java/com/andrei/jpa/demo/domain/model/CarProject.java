@@ -1,9 +1,8 @@
 package com.andrei.jpa.demo.domain.model;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.sun.istack.internal.NotNull;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,15 +11,14 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.sun.istack.internal.NotNull;
 
 /**
  * {@code Entity} for a car project.
@@ -31,12 +29,7 @@ import java.util.List;
 @Entity
 @Table(name = "CAR_PROJECT")
 @EntityListeners(AuditingEntityListener.class)
-public class CarProject {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ")
-	@SequenceGenerator(sequenceName = "customer_seq", allocationSize = 1, name = "CUST_SEQ")
-	Long id;
+public class CarProject extends AbstractEntity {
 
 	@NotNull
 	@CreatedDate
@@ -63,34 +56,30 @@ public class CarProject {
 
 	}
 
-	public CarProject(
-			CarBrand carBrand,
-			String name,
-			String description) {
+	public CarProject(CarBrand carBrand, String name, String description) {
 		this.carBrand = carBrand;
 		this.name = name;
 		this.description = description;
 	}
 
 	public CarBrand getCarBrand() {
-		return carBrand;
+		return this.carBrand;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public List<CarModel> getCarModels() {
-		return carModels;
+		return this.carModels;
 	}
 
 	public void addCarModel(CarModel carModel) {
-		carModels.add(carModel);
+		this.carModels.add(carModel);
 		carModel.setCarProject(this);
 	}
 }
-

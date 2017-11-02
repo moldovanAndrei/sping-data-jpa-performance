@@ -1,7 +1,7 @@
 package com.andrei.jpa.demo.domain.model;
 
-import com.andrei.jpa.demo.domain.CarBrand;
-import com.sun.istack.internal.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,12 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.andrei.jpa.demo.domain.CarBrand;
+import com.sun.istack.internal.NotNull;
 
 /**
  * {@code Entity} for a car model.
@@ -32,7 +32,7 @@ import java.util.List;
 @Entity
 @Table(name = "CAR_MODEL", uniqueConstraints = {
 		@UniqueConstraint(name = "UC_CAR_PROJECT_MODELL_NAME", columnNames = { "CAR_PROJECT_ID", "MODEL_NAME" }) })
-public class CarModel {
+public class CarModel extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ")
@@ -53,8 +53,7 @@ public class CarModel {
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "CAR_PROJECT_ID", nullable = false,
-			foreignKey = @ForeignKey(name = "FK_CAR_PROJECT_CAR_MODELL"))
+	@JoinColumn(name = "CAR_PROJECT_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_CAR_PROJECT_CAR_MODELL"))
 	private CarProject carProject;
 
 	@OneToMany(mappedBy = "carModel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -73,7 +72,7 @@ public class CarModel {
 	}
 
 	public String getModelName() {
-		return modelName;
+		return this.modelName;
 	}
 
 	public void setModelName(String modelName) {
@@ -81,7 +80,7 @@ public class CarModel {
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setCarProject(CarProject carProject) {
@@ -89,20 +88,20 @@ public class CarModel {
 	}
 
 	public List<CarModelPrototype> getCarModelPrototypes() {
-		return carModelPrototypes;
+		return this.carModelPrototypes;
 	}
 
 	public List<CarModelProperty> getCarModelProperties() {
-		return carModelProperties;
+		return this.carModelProperties;
 	}
 
 	public void addCarModelPrototype(CarModelPrototype prototype) {
-		carModelPrototypes.add(prototype);
+		this.carModelPrototypes.add(prototype);
 		prototype.setCarModel(this);
 	}
 
 	public void addCarModelProperty(CarModelProperty carModelProperty) {
-		carModelProperties.add(carModelProperty);
+		this.carModelProperties.add(carModelProperty);
 		carModelProperty.setCarModel(this);
 	}
 }
